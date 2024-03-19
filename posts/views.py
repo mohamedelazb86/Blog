@@ -29,3 +29,18 @@ def create_post(request):
         form=PostForm()
 
     return render(request,'posts/create_post.html',{'form':form})
+
+def update_post(request,pk):
+    post=Post.objects.get(id=pk)
+
+    if request.method == 'POST':
+        form=PostForm(request.POST,request.FILES,instance=post)
+        if form.is_valid():
+            myform=form.save(commit=False)
+            myform.user=request.user
+            form.save()
+            return redirect('/posts/')
+    else:
+        form=PostForm(instance=post)
+
+    return render(request,'posts/update.html',{'form':form})
