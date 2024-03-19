@@ -8,13 +8,13 @@
   </head>
   <body>
 
-    <div class ='row' mt="5" my="5">
+    <div >
         <h3> All Posts</h3>
         <ul>
                 {% for post in post_list %}
-                <li>{{post}}---{{post.draft}}</li>
+               <a href="/posts/{{post.id}}"><li>{{post}}---{{post.draft}}</li></a> 
                 {% endfor %}
-                </ul>
+        </ul>
 
     </div>
 
