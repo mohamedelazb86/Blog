@@ -11,8 +11,10 @@ def postlist(request):
 
 def post_detail(request,id):
     post=Post.objects.get(id=id)
+    comments=Comment.objects.filter(post=post)
     context={
-        'post':post
+        'post':post,
+        'comments':comments
     }
     return render(request,'posts/post_detail.html',context)
 
