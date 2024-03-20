@@ -9,7 +9,7 @@
   <body>
 
     <div >
-        <h3> All Posts</h3>
+        <h3> All Posts({{post_list|length}})</h3>
         <ul>
                 {% for post in post_list %}
                <a href="/posts/{{post.id}}"><li>{{post}}---{{post.draft}}</li></a> 
