@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Post,Comment,Category
-from .forms import PostForm
+from .forms import PostForm,CommentForm
 
 def postlist(request):
     posts=Post.objects.all()
@@ -12,9 +12,21 @@ def postlist(request):
 def post_detail(request,id):
     post=Post.objects.get(id=id)
     comments=Comment.objects.filter(post=post)
+
+    if request.method == 'POST':
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            myform=form.save(commit=False)
+            myform.post=post
+            form.save()
+            return redirect('/posts/')
+    else:
+        form=CommentForm()
+    
     context={
         'post':post,
-        'comments':comments
+        'comments':comments,
+        'form':form,
     }
     return render(request,'posts/post_detail.html',context)
 
